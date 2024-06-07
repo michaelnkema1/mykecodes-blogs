@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <small>By {{ post.author }} on {{ post.created_at }}</small>
+        <br>
+        <a href="{% url 'home' %}">Back to Home</a>
+    </div>
+</body>
+</html>
