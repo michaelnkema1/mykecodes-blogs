@@ -1,12 +1,13 @@
-# Django Blog Engine
+# Mykecodes Blogs
 
-This is a simple blog engine built with Django for the backend and Bootstrap for the frontend.
+This is a blog website built with a Django backend and a react frontend.
 
 ## Features
 
-- List blog posts
+-Create blogs
+- View popular blog posts
+- User profile, Login/Signup
 - View blog post details
-- Admin interface to manage posts
 
 ## Setup
 
