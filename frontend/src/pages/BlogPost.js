@@ -31,8 +31,8 @@ const BlogPost = () => {
 
     Stay tuned for more React tutorials and tips!`,
     image: 'https://source.unsplash.com/random/1200x600?react',
-    date: '2024-03-20',
-    author: 'John Doe',
+    date: '2025-05-31',
+    author: 'Michael Nkema',
   });
 
   return (

@@ -4,6 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import react from '../assets/react.png';
 import javascript from '../assets/js.jpeg';
 import responsive from '../assets/responsive.png';
+import API from '../services/api';
 
 const Home = () => {
   const [posts, setPosts] = useState([
@@ -29,6 +30,12 @@ const Home = () => {
       date: '2024-03-18',
     },
   ]);
+
+  useEffect(() => {
+    API.get('posts/')
+      .then(response => setPosts(response.data))
+      .catch(error => console.error(error));
+  }, []);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
