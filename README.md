@@ -1,6 +1,7 @@
 # MykeCodes Blog Website
 
 A modern, full-stack blog application built with Django REST Framework backend and React frontend with Material-UI.
+This was my first full-stack project
 
 [![Django](https://img.shields.io/badge/Django-5.0.6-green.svg)](https://djangoproject.com/)
 [![React](https://img.shields.io/badge/React-19.1.0-blue.svg)](https://reactjs.org/)
