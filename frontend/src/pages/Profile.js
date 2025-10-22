@@ -16,9 +16,9 @@ const Profile = () => {
   const { user, updateUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: user?.name || '',
+    first_name: user?.first_name || '',
+    last_name: user?.last_name || '',
     email: user?.email || '',
-    bio: user?.bio || '',
   });
 
   const handleChange = (e) => {
@@ -48,18 +48,25 @@ const Profile = () => {
     );
   }
 
+  const displayName = user.first_name && user.last_name 
+    ? `${user.first_name} ${user.last_name}` 
+    : user.username;
+
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
           <Avatar
-            src={user.avatar}
-            alt={user.name}
             sx={{ width: 100, height: 100, mr: 3 }}
-          />
+          >
+            {displayName.charAt(0).toUpperCase()}
+          </Avatar>
           <Box>
             <Typography variant="h4" component="h1">
-              {user.name}
+              {displayName}
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary">
+              @{user.username}
             </Typography>
             <Typography variant="subtitle1" color="text.secondary">
               {user.email}
@@ -72,12 +79,21 @@ const Profile = () => {
         {isEditing ? (
           <Box component="form" onSubmit={handleSubmit}>
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
-                  label="Name"
-                  name="name"
-                  value={formData.name}
+                  label="First Name"
+                  name="first_name"
+                  value={formData.first_name}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleChange}
                 />
               </Grid>
@@ -87,17 +103,6 @@ const Profile = () => {
                   label="Email"
                   name="email"
                   value={formData.email}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Bio"
-                  name="bio"
-                  multiline
-                  rows={4}
-                  value={formData.bio}
                   onChange={handleChange}
                 />
               </Grid>
@@ -123,11 +128,24 @@ const Profile = () => {
         ) : (
           <Box>
             <Typography variant="h6" gutterBottom>
-              Bio
+              Profile Information
             </Typography>
             <Typography paragraph>
-              {user.bio || 'No bio provided'}
+              <strong>Username:</strong> {user.username}
             </Typography>
+            <Typography paragraph>
+              <strong>Email:</strong> {user.email}
+            </Typography>
+            {user.first_name && (
+              <Typography paragraph>
+                <strong>First Name:</strong> {user.first_name}
+              </Typography>
+            )}
+            {user.last_name && (
+              <Typography paragraph>
+                <strong>Last Name:</strong> {user.last_name}
+              </Typography>
+            )}
             <Button
               variant="contained"
               color="primary"
@@ -140,6 +158,6 @@ const Profile = () => {
       </Paper>
     </Container>
   );
-};
-
-export default Profile; 
+  };
+  
+export default Profile;

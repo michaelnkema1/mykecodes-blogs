@@ -11,12 +11,13 @@ import {
   Alert,
 } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
+import API from '../services/api';
 
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
   const [error, setError] = useState('');
@@ -34,19 +35,13 @@ const Login = () => {
     setError('');
 
     try {
-      // Here you would typically make an API call to your backend
-      // For now, we'll simulate a successful login
-      const userData = {
-        id: '1',
-        email: formData.email,
-        name: 'John Doe',
-        avatar: 'https://source.unsplash.com/random/100x100?portrait',
-      };
+      const response = await API.post('auth/login/', formData);
+      const { user, token } = response.data;
       
-      login(userData);
+      login(user, token);
       navigate('/');
     } catch (err) {
-      setError('Failed to login. Please check your credentials.');
+      setError(err.response?.data?.error || 'Failed to login. Please check your credentials.');
     }
   };
 
@@ -68,12 +63,12 @@ const Login = () => {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
-            value={formData.email}
+            value={formData.username}
             onChange={handleChange}
           />
           <TextField

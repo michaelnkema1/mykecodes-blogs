@@ -58,6 +58,10 @@ const Navbar = () => {
     navigate('/');
   };
 
+  const displayName = user?.first_name && user?.last_name 
+    ? `${user.first_name} ${user.last_name}` 
+    : user?.username || 'User';
+
   return (
     <StyledAppBar position="sticky">
       <Container maxWidth="lg">
@@ -111,10 +115,10 @@ const Navbar = () => {
                   sx={{ ml: 2 }}
                 >
                   <Avatar
-                    src={user.avatar}
-                    alt={user.name}
                     sx={{ width: 32, height: 32 }}
-                  />
+                  >
+                    {displayName.charAt(0).toUpperCase()}
+                  </Avatar>
                 </IconButton>
                 <Menu
                   anchorEl={userMenuAnchor}

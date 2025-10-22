@@ -11,15 +11,18 @@ import {
   Alert,
 } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
+import API from '../services/api';
 
 const Signup = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
+    first_name: '',
+    last_name: '',
   });
   const [error, setError] = useState('');
 
@@ -41,19 +44,14 @@ const Signup = () => {
     }
 
     try {
-      // Here you would typically make an API call to your backend
-      // For now, we'll simulate a successful signup
-      const userData = {
-        id: '1',
-        name: formData.name,
-        email: formData.email,
-        avatar: 'https://source.unsplash.com/random/100x100?portrait',
-      };
+      const { confirmPassword, ...signupData } = formData;
+      const response = await API.post('auth/register/', signupData);
+      const { user, token } = response.data;
       
-      login(userData);
+      login(user, token);
       navigate('/');
     } catch (err) {
-      setError('Failed to create account. Please try again.');
+      setError(err.response?.data?.error || 'Failed to create account. Please try again.');
     }
   };
 
@@ -75,12 +73,12 @@ const Signup = () => {
             margin="normal"
             required
             fullWidth
-            id="name"
-            label="Full Name"
-            name="name"
-            autoComplete="name"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
-            value={formData.name}
+            value={formData.username}
             onChange={handleChange}
           />
           <TextField
@@ -92,6 +90,26 @@ const Signup = () => {
             name="email"
             autoComplete="email"
             value={formData.email}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            id="first_name"
+            label="First Name"
+            name="first_name"
+            autoComplete="given-name"
+            value={formData.first_name}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            id="last_name"
+            label="Last Name"
+            name="last_name"
+            autoComplete="family-name"
+            value={formData.last_name}
             onChange={handleChange}
           />
           <TextField
