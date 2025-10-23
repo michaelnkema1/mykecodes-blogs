@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8001/api/',
+  baseURL: 'https://mykecodes-blogs.onrender.com/api/',
 });
 
 // Add token to requests if available
